@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> QR Code Scan </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        img {
+            margin-top: 10px;
+            width: 45em;
+            height: 45em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2> Scan The QR Code To Take Attendance</h2>
+        <img id="qr-code" src="" alt="QR Code">
+    </div>
+
+    <script>
+        const socket = io.connect("http://localhost:5000");
+
+        socket.on("update_qr", function(data) {
+            document.getElementById("qr-code").src = data;
+        });
+    </script>
+</body>
+</html>
